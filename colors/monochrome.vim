@@ -19,6 +19,7 @@ let s:bgray  = ['#181818', 233]
 let s:lgray  = ['LightGray', 255]
 let s:cgray  = ['#737373', 243]
 let s:dgray  = ['DarkGray', 248]
+let s:pgray  = ['#3d444c', 239]
 let s:sblue  = ['#778899', 67]
 let s:yellow = ['Yellow', 226]
 let s:red    = ['#b6403a', 160]
@@ -102,7 +103,7 @@ call s:hi('helpHyperTextJump', s:sblue, s:default_bg, s:underline)
 call s:hi('helpNote')
 
 " Popup menu.
-call s:hi('Pmenu', s:white, s:sblue)
+call s:hi('Pmenu', s:white, s:pgray)
 call s:hi('PmenuSel', s:sblue, s:white)
 
 " Notes.
