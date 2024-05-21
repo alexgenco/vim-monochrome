@@ -31,6 +31,7 @@ let s:default_bg = s:black
 let s:italic    = 'italic'
 let s:bold      = 'bold'
 let s:underline = 'underline'
+let s:reverse   = 'reverse'
 let s:none      = 'NONE'
 
 let s:default_lst = []
@@ -45,7 +46,7 @@ function! s:hi(...)
     let group = a:1
     let fg    = get(a:, 2, s:default_fg)
     let bg    = get(a:, 3, s:default_bg)
-    let attr  = get(a:, 4, s:default_str)
+    let attrs = get(a:, 4, s:default_lst)
 
     let cmd = ['hi', group]
 
@@ -59,9 +60,15 @@ function! s:hi(...)
         call add(cmd, 'ctermbg='.bg[1])
     endif
 
-    if attr != s:default_str
-        call add(cmd, 'gui='.attr)
+    if type(attrs) != v:t_list
+        let attrs = [attrs]
+    endif
+
+    if attrs != s:default_lst
+        let attr = join(attrs, ',')
+
         call add(cmd, 'cterm='.attr)
+        call add(cmd, 'gui='.attr)
     endif
 
     exec join(cmd, ' ')
@@ -83,6 +90,10 @@ call s:hi('ErrorMsg', s:white, s:red)
 
 " Tildes at the bottom of a buffer, etc.
 call s:hi('NonText', s:dgray)
+
+" Status line
+call s:hi('StatusLine', s:default_lst, s:default_lst, [s:reverse, s:bold])
+call s:hi('StatusLineNC', s:default_fg, s:default_bg, s:reverse)
 
 " Folding.
 call s:hi('FoldColumn', s:dgray)
